@@ -3,15 +3,16 @@
   "version": "1.5.1",
   "license": "MIT",
   "scripts": {
+    "dev": "npm run watch & npm run serve",
     "lint": "eslint src && prettier --check src",
     "prettify": "prettier --write src",
     "compile": "rbxtsc --verbose",
     "watch": "rbxtsc -w",
     "tarmac": "tarmac sync --target roblox",
     "serve": "rojo serve",
-    "build": "rm -rf out && pnpm compile && rojo build --output place.rbxlx",
-    "deploy:dev": "pnpm build && mantle deploy --environment canary",
-    "deploy:prod": "pnpm build && mantle deploy --environment production",
+    "build": "rm -rf out && npm compile && rojo build --output place.rbxlx",
+    "deploy:dev": "npm build && mantle deploy --environment canary",
+    "deploy:prod": "npm build && mantle deploy --environment production",
     "output:dev": "mantle outputs --environment canary > mantle-output.json",
     "output:prod": "mantle outputs --environment production > mantle-output.json"
   },
@@ -52,6 +53,5 @@
     "@rbxts/t": "^3.2.1",
     "@rbxts/testez": "0.4.2-ts.0",
     "@rbxts/validate-tree": "^2.0.2"
-  },
-  "packageManager": "pnpm@10.24.0"
+  }
 }
