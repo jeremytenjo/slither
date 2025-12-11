@@ -1,11 +1,11 @@
-import { runOnce } from "shared/utils/run-once";
+import { runOnce } from 'shared/utils/run-once'
 
-import { initBadgeService } from "./badges";
-import { initMilestoneService } from "./milestones";
-import { initRewardService } from "./rewards";
+import { initBadgeService } from './badges'
+import { initMilestoneService } from './milestones'
+import { initRewardService } from './rewards'
 
 export const initRewardServices = runOnce(async () => {
-	initBadgeService();
-	initMilestoneService();
-	initRewardService();
-});
+  initBadgeService()
+  initMilestoneService()
+  initRewardService()
+})

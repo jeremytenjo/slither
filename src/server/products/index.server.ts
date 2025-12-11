@@ -1,3 +1,3 @@
-import { initProductServices } from "./services";
+import { initProductServices } from './services'
 
-initProductServices();
+initProductServices()

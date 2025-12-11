@@ -1,23 +1,23 @@
-import { store } from "server/store";
-import { selectSnakesById } from "shared/store/snakes";
-import { Grid } from "shared/utils/grid";
+import { store } from 'server/store'
+import { selectSnakesById } from 'shared/store/snakes'
+import { Grid } from 'shared/utils/grid'
 
-export const snakeGrid = new Grid<{ id: string }>(10);
+export const snakeGrid = new Grid<{ id: string }>(10)
 
 export function updateSnakeGrid() {
-	const snakes = store.getState(selectSnakesById);
+  const snakes = store.getState(selectSnakesById)
 
-	snakeGrid.clear();
+  snakeGrid.clear()
 
-	for (const [, snake] of pairs(snakes)) {
-		if (snake.dead) {
-			continue;
-		}
+  for (const [, snake] of pairs(snakes)) {
+    if (snake.dead) {
+      continue
+    }
 
-		snakeGrid.insert(snake.head, { id: snake.id });
+    snakeGrid.insert(snake.head, { id: snake.id })
 
-		for (const tracer of snake.tracers) {
-			snakeGrid.insert(tracer, { id: snake.id });
-		}
-	}
+    for (const tracer of snake.tracers) {
+      snakeGrid.insert(tracer, { id: snake.id })
+    }
+  }
 }

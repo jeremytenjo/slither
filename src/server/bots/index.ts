@@ -1,1 +1,1 @@
-export * from "./bot-factory";
+export * from './bot-factory'

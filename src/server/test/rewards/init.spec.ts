@@ -1,19 +1,19 @@
 /// <reference types="@rbxts/testez/globals" />
 
-import { initRewardServices } from "server/rewards";
+import { initRewardServices } from 'server/rewards'
 
-import { resetStore } from "../helpers/reset-store";
+import { resetStore } from '../helpers/reset-store'
 
 export = () => {
-	beforeAll(() => {
-		initRewardServices();
-	});
+  beforeAll(() => {
+    initRewardServices()
+  })
 
-	beforeEach(() => {
-		resetStore();
-	});
+  beforeEach(() => {
+    resetStore()
+  })
 
-	afterEach(() => {
-		resetStore();
-	});
-};
+  afterEach(() => {
+    resetStore()
+  })
+}

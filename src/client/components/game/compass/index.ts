@@ -1,1 +1,1 @@
-export * from "./compass";
+export * from './compass'

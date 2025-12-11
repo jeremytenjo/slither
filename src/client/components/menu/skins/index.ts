@@ -1,1 +1,1 @@
-export * from "./skins";
+export * from './skins'

@@ -1,27 +1,27 @@
-import { store } from "server/store";
+import { store } from 'server/store'
 
-import { updateSnakeGrid } from "./snake-grid";
+import { updateSnakeGrid } from './snake-grid'
 
-const nextSnakeInputs = new Map<string, number>();
+const nextSnakeInputs = new Map<string, number>()
 
 export function onSnakeTick() {
-	consumeNextSnakeInputs();
-	store.snakeTick();
-	updateSnakeGrid();
+  consumeNextSnakeInputs()
+  store.snakeTick()
+  updateSnakeGrid()
 }
 
 export function registerSnakeInput(id: string, angle: number) {
-	nextSnakeInputs.set(id, angle);
+  nextSnakeInputs.set(id, angle)
 }
 
 export function deleteSnakeInput(id: string) {
-	nextSnakeInputs.delete(id);
+  nextSnakeInputs.delete(id)
 }
 
 function consumeNextSnakeInputs() {
-	for (const [id, angle] of nextSnakeInputs) {
-		store.turnSnake(id, angle);
-	}
+  for (const [id, angle] of nextSnakeInputs) {
+    store.turnSnake(id, angle)
+  }
 
-	nextSnakeInputs.clear();
+  nextSnakeInputs.clear()
 }

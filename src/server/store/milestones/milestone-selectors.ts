@@ -1,34 +1,34 @@
-import { RootState } from "..";
-import { MilestoneEntity } from "./milestone-slice";
+import { RootState } from '..'
+import { MilestoneEntity } from './milestone-slice'
 
 export const identifyMilestone = (milestone: MilestoneEntity, index: string) => {
-	return index;
-};
+  return index
+}
 
 export const selectMilestones = (state: RootState) => {
-	return state.milestones;
-};
+  return state.milestones
+}
 
 export const selectMilestone = (playerId: string) => {
-	return (state: RootState) => {
-		return state.milestones[playerId];
-	};
-};
+  return (state: RootState) => {
+    return state.milestones[playerId]
+  }
+}
 
 export const selectMilestoneRanking = (playerId: string) => {
-	return (state: RootState) => {
-		return state.milestones[playerId]?.topRank;
-	};
-};
+  return (state: RootState) => {
+    return state.milestones[playerId]?.topRank
+  }
+}
 
 export const selectMilestoneScore = (playerId: string) => {
-	return (state: RootState) => {
-		return state.milestones[playerId]?.topScore;
-	};
-};
+  return (state: RootState) => {
+    return state.milestones[playerId]?.topScore
+  }
+}
 
 export const selectMilestoneLastKilled = (playerId: string) => {
-	return (state: RootState) => {
-		return state.milestones[playerId]?.lastKilled;
-	};
-};
+  return (state: RootState) => {
+    return state.milestones[playerId]?.lastKilled
+  }
+}

@@ -1,2 +1,2 @@
-export * from "./collision";
-export * from "./collision-tick";
+export * from './collision'
+export * from './collision-tick'

@@ -1,4 +1,4 @@
-import { store } from "server/store";
+import { store } from 'server/store'
 
 /**
  * To prevent the state from being polluted between tests, we flush the state
@@ -6,7 +6,7 @@ import { store } from "server/store";
  * changes they were intended to run for, and resets are handled separately.
  */
 export function resetStore() {
-	store.flush();
-	store.resetState();
-	store.flush();
+  store.flush()
+  store.resetState()
+  store.flush()
 }

@@ -1,3 +1,3 @@
-import { initRewardServices } from "./services";
+import { initRewardServices } from './services'
 
-initRewardServices();
+initRewardServices()

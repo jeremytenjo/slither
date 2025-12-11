@@ -1,3 +1,3 @@
-import { initPlayerServices } from "./services";
+import { initPlayerServices } from './services'
 
-initPlayerServices();
+initPlayerServices()

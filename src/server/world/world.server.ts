@@ -1,3 +1,3 @@
-import { initWorldServices } from "./services";
+import { initWorldServices } from './services'
 
-initWorldServices();
+initWorldServices()

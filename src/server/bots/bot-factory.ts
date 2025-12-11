@@ -1,45 +1,45 @@
-import { store } from "server/store";
-import { getSafePointInWorld } from "server/world/utils";
-import { getRandomBaseSnakeSkin } from "shared/constants/skins";
-import { selectSnakeCount, selectSnakeIsDead } from "shared/store/snakes";
+import { store } from 'server/store'
+import { getSafePointInWorld } from 'server/world/utils'
+import { getRandomBaseSnakeSkin } from 'shared/constants/skins'
+import { selectSnakeCount, selectSnakeIsDead } from 'shared/store/snakes'
 
-import { BotBehavior } from "./bot-behavior";
-import { generateBotName } from "./bot-names";
+import { BotBehavior } from './bot-behavior'
+import { generateBotName } from './bot-names'
 
-const MIN_SNAKES = 25;
+const MIN_SNAKES = 25
 
-let nextBotId = 0;
+let nextBotId = 0
 
 export function initBotFactory() {
-	store.subscribe(
-		selectSnakeCount,
-		(count) => count < MIN_SNAKES,
-		(count) => createBots(MIN_SNAKES - count),
-	);
+  store.subscribe(
+    selectSnakeCount,
+    (count) => count < MIN_SNAKES,
+    (count) => createBots(MIN_SNAKES - count),
+  )
 
-	createBots(MIN_SNAKES);
+  createBots(MIN_SNAKES)
 }
 
 export function createBots(amount: number) {
-	for (const _ of $range(0, amount)) {
-		createBot();
-	}
+  for (const _ of $range(0, amount)) {
+    createBot()
+  }
 }
 
 export function createBot() {
-	const id = `bot-${nextBotId++}`;
-	const name = generateBotName();
-	const behavior = new BotBehavior(id);
+  const id = `bot-${nextBotId++}`
+  const name = generateBotName()
+  const behavior = new BotBehavior(id)
 
-	store.addSnake(id, {
-		name,
-		head: getSafePointInWorld(),
-		skin: getRandomBaseSnakeSkin().id,
-	});
+  store.addSnake(id, {
+    name,
+    head: getSafePointInWorld(),
+    skin: getRandomBaseSnakeSkin().id,
+  })
 
-	store.once(selectSnakeIsDead(id), () => {
-		behavior.destroy();
-	});
+  store.once(selectSnakeIsDead(id), () => {
+    behavior.destroy()
+  })
 
-	return id;
+  return id
 }

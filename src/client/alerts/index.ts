@@ -1,1 +1,1 @@
-export * from "./alert-factory";
+export * from './alert-factory'

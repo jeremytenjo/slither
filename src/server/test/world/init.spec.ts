@@ -1,20 +1,20 @@
 /// <reference types="@rbxts/testez/globals" />
 
-import { candyGrid, initWorldServices } from "server/world";
+import { candyGrid, initWorldServices } from 'server/world'
 
-import { resetStore } from "../helpers/reset-store";
+import { resetStore } from '../helpers/reset-store'
 
 export = () => {
-	beforeAll(() => {
-		initWorldServices();
-	});
+  beforeAll(() => {
+    initWorldServices()
+  })
 
-	beforeEach(() => {
-		resetStore();
-	});
+  beforeEach(() => {
+    resetStore()
+  })
 
-	afterEach(() => {
-		resetStore();
-		candyGrid.clear();
-	});
-};
+  afterEach(() => {
+    resetStore()
+    candyGrid.clear()
+  })
+}

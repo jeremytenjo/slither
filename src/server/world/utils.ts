@@ -1,31 +1,31 @@
-import { setTimeout } from "@rbxts/set-timeout";
-import { store } from "server/store";
-import { WORLD_BOUNDS } from "shared/constants/core";
-import { selectCandyById } from "shared/store/candy";
-import { selectSnakeById } from "shared/store/snakes";
+import { setTimeout } from '@rbxts/set-timeout'
+import { store } from 'server/store'
+import { WORLD_BOUNDS } from 'shared/constants/core'
+import { selectCandyById } from 'shared/store/candy'
+import { selectSnakeById } from 'shared/store/snakes'
 
-import { snakeGrid } from "./services/snakes/snake-grid";
+import { snakeGrid } from './services/snakes/snake-grid'
 
-const MIN_SAFE_DISTANCE = 10;
+const MIN_SAFE_DISTANCE = 10
 
 export function getSnake(snakeId: string) {
-	return store.getState(selectSnakeById(snakeId));
+  return store.getState(selectSnakeById(snakeId))
 }
 
 export function getCandy(candyId: string) {
-	return store.getState(selectCandyById(candyId));
+  return store.getState(selectCandyById(candyId))
 }
 
 export function killSnake(snakeId: string) {
-	store.setSnakeIsDead(snakeId);
+  store.setSnakeIsDead(snakeId)
 
-	setTimeout(() => {
-		store.removeSnake(snakeId);
-	}, 2);
+  setTimeout(() => {
+    store.removeSnake(snakeId)
+  }, 2)
 }
 
 export function playerIsSpawned(player: Player) {
-	return getSnake(player.Name) !== undefined;
+  return getSnake(player.Name) !== undefined
 }
 
 /**
@@ -33,16 +33,16 @@ export function playerIsSpawned(player: Player) {
  * the point will be within this percentage of the world bounds.
  */
 export function getRandomPointInWorld(margin = 1) {
-	const random = new Random();
-	let position = new Vector2();
+  const random = new Random()
+  let position = new Vector2()
 
-	do {
-		const x = random.NextNumber(-margin, margin);
-		const y = random.NextNumber(-margin, margin);
-		position = new Vector2(x, y).mul(WORLD_BOUNDS);
-	} while (position.Magnitude > WORLD_BOUNDS);
+  do {
+    const x = random.NextNumber(-margin, margin)
+    const y = random.NextNumber(-margin, margin)
+    position = new Vector2(x, y).mul(WORLD_BOUNDS)
+  } while (position.Magnitude > WORLD_BOUNDS)
 
-	return position;
+  return position
 }
 
 /**
@@ -50,20 +50,20 @@ export function getRandomPointInWorld(margin = 1) {
  * closer to the origin.
  */
 export function getRandomPointNearWorldOrigin(margin = 1, passes = 2) {
-	let currentPosition = new Vector2();
-	let currentDistance = math.huge;
+  let currentPosition = new Vector2()
+  let currentDistance = math.huge
 
-	for (const _ of $range(0, passes)) {
-		const position = getRandomPointInWorld(margin);
-		const distance = position.Magnitude;
+  for (const _ of $range(0, passes)) {
+    const position = getRandomPointInWorld(margin)
+    const distance = position.Magnitude
 
-		if (distance < currentDistance) {
-			currentPosition = position;
-			currentDistance = distance;
-		}
-	}
+    if (distance < currentDistance) {
+      currentPosition = position
+      currentDistance = distance
+    }
+  }
 
-	return currentPosition;
+  return currentPosition
 }
 
 /**
@@ -71,28 +71,28 @@ export function getRandomPointNearWorldOrigin(margin = 1, passes = 2) {
  * not too close to any other snake, but not the farthest point either.
  */
 export function getSafePointInWorld() {
-	const spawns: { position: Vector2; safety: number }[] = [];
+  const spawns: { position: Vector2; safety: number }[] = []
 
-	const scoreSafety = (spawn: Vector2) => {
-		const nearest = snakeGrid.nearest(spawn, MIN_SAFE_DISTANCE * 2);
-		const distance = nearest ? nearest.position.sub(spawn).Magnitude : math.huge;
-		return distance;
-	};
+  const scoreSafety = (spawn: Vector2) => {
+    const nearest = snakeGrid.nearest(spawn, MIN_SAFE_DISTANCE * 2)
+    const distance = nearest ? nearest.position.sub(spawn).Magnitude : math.huge
+    return distance
+  }
 
-	for (const _ of $range(0, 10)) {
-		const position = getRandomPointNearWorldOrigin(0.8);
-		const safety = scoreSafety(position);
-		spawns.push({ position, safety });
-	}
+  for (const _ of $range(0, 10)) {
+    const position = getRandomPointNearWorldOrigin(0.8)
+    const safety = scoreSafety(position)
+    spawns.push({ position, safety })
+  }
 
-	const sorted = spawns.sort((a, b) => a.safety < b.safety);
+  const sorted = spawns.sort((a, b) => a.safety < b.safety)
 
-	// Find the first safe spawn that is still close to another snake
-	for (const spawn of sorted) {
-		if (spawn.safety > MIN_SAFE_DISTANCE) {
-			return spawn.position;
-		}
-	}
+  // Find the first safe spawn that is still close to another snake
+  for (const spawn of sorted) {
+    if (spawn.safety > MIN_SAFE_DISTANCE) {
+      return spawn.position
+    }
+  }
 
-	return sorted[sorted.size() - 1].position;
+  return sorted[sorted.size() - 1].position
 }
